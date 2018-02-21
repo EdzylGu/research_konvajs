@@ -18,6 +18,10 @@
 <body>
   <div id="container"></div>
   <script>
+
+    //parameter
+    var node_width = 15;
+
     var width = window.innerWidth;
     var height = window.innerHeight;
 
@@ -82,11 +86,11 @@
       });
       anchor.on('click', function() {
         id = anchor.attrs.id.split(",");
-        if (anchor.attrs.fill === "blue") {
+        if (anchor.attrs.fill === "black") {
           this.setFill('#ddd');
           points_status[id[0]][id[1]] = 1;
         } else {
-          this.setFill('blue');
+          this.setFill('black');
           points_status[id[0]][id[1]] = 0;
         }
         updateDottedLines();
@@ -106,10 +110,10 @@
       lineLayer = new Konva.Layer();
 
       var start_x = 30, start_y = 30;
-      for (var i = 0; i < 15; i++) {
+      for (var i = 0; i < node_width+20; i++) {
         var points_temp = [];
         var points_status_temp = [];
-        for (var j = 0; j < 15; j++) {
+        for (var j = 0; j < node_width; j++) {
           points_temp[j] = buildAnchor(start_x + 35*i, start_y+35*j, i.toString()+"," + j.toString());
           points_status_temp[j] = 1;
         }
