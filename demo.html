@@ -22,20 +22,10 @@
     var height = window.innerHeight;
 
     // globals
-    var curveLayer, lineLayer, anchorLayer, quad, bezier;
+    var curveLayer, lineLayer, anchorLayer, quad, points=[], lines=[];
 
     function updateDottedLines() {
-      var q = quad;
-      var b = bezier;
 
-      var quadLine = lineLayer.get('#quadLine')[0];
-      var bezierLine = lineLayer.get('#bezierLine')[0];
-
-      quadLine.setPoints([q.start.attrs.x, q.start.attrs.y, q.control.attrs.x, q.control.attrs.y, q.end.attrs.x, q.end.attrs.y, b.start.attrs.x, b.start.attrs.y, b.control1.attrs.x, b.control1.attrs.y, b.control2.attrs.x, b.control2.attrs.y, b.end.attrs
-        .x, b.end.attrs.y
-      ]);
-
-      bezierLine.setPoints([b.start.attrs.x, b.start.attrs.y, b.control1.attrs.x, b.control1.attrs.y, b.control2.attrs.x, b.control2.attrs.y, b.end.attrs.x, b.end.attrs.y]);
       lineLayer.draw();
     }
 
@@ -43,11 +33,10 @@
       var anchor = new Konva.Circle({
         x: x,
         y: y,
-        radius: 20,
+        radius: 10,
         stroke: '#666',
         fill: '#ddd',
-        strokeWidth: 2,
-        draggable: true
+        strokeWidth: 2
       });
 
       // add hover styling
@@ -71,7 +60,6 @@
       return anchor;
     }
 
-
     var stage = new Konva.Stage({
       container: 'container',
       width: width,
@@ -81,55 +69,56 @@
     anchorLayer = new Konva.Layer();
     lineLayer = new Konva.Layer();
 
-    // curveLayer just contains a canvas which is drawn
-    // onto with the existing canvas API
-    curveLayer = new Konva.Layer();
-
-    var quadLine = new Konva.Line({
-      dash: [10, 10, 10, 10],
-      strokeWidth: 3,
-      stroke: 'black',
-      lineCap: 'round',
-      id: 'quadLine',
-      opacity: 0.3,
-      points: [0, 0]
-    });
-
-    var bezierLine = new Konva.Line({
-      dash: [10, 10, 10, 10],
-      strokeWidth: 3,
-      stroke: 'black',
-      lineCap: 'round',
-      id: 'bezierLine',
-      opacity: 0.3,
-      points: [0, 0]
-    });
+    var start_x = 100, start_y = 100;
+    for (var i = 0; i < 10; i++) {
+      var points_temp = [];
+      for (var j = 0; j < 10; j++) {
+        points_temp[j] = buildAnchor(start_x + 40*i, start_y+40*j);
+      }
+      points[i] = points_temp;
+    }
+    console.log(points);
+    for (var i = 0; i < points.length-1; i++) {
+      for (var j = 0; j < points[i].length; j++) {
+        var line = [];
+        line.push(points[i][j].attrs.x,points[i][j].attrs.y, points[i+1][j].attrs.x, points[i+1][j].attrs.y);
+        console.log(line);
+        lines.push(new Konva.Line({
+          strokeWidth: 3,
+          stroke: 'black',
+          lineCap: 'round',
+          id: 'quadLine',
+          opacity: 0.3,
+          points: line
+        }));
+      }
+    }
+    for (var i = 0; i < points.length; i++) {
+      for (var j = 0; j < points[i].length - 1; j++) {
+        var line = [];
+        line.push(points[i][j].attrs.x,points[i][j].attrs.y, points[i][j+1].attrs.x, points[i][j+1].attrs.y);
+        console.log(line);
+        lines.push(new Konva.Line({
+          strokeWidth: 3,
+          stroke: 'black',
+          lineCap: 'round',
+          id: 'quadLine',
+          opacity: 0.3,
+          points: line
+        }));
+      }
+    }
 
     // add dotted line connectors
-    lineLayer.add(quadLine);
-    lineLayer.add(bezierLine);
-
-    quad = {
-      start: buildAnchor(60, 30),
-      control: buildAnchor(240, 110),
-      end: buildAnchor(80, 160)
-    };
-
-    bezier = {
-      start: buildAnchor(280, 20),
-      control1: buildAnchor(530, 40),
-      control2: buildAnchor(480, 150),
-      end: buildAnchor(300, 150)
-    };
-
+    for (var i = 0; i < lines.length; i++) {
+      lineLayer.add(lines[i]);
+    }
     // keep curves insync with the lines
     anchorLayer.on('beforeDraw', function() {
       updateDottedLines();
     });
 
 
-
-    stage.add(curveLayer);
     stage.add(lineLayer);
     stage.add(anchorLayer);
     updateDottedLines();
