@@ -5,7 +5,7 @@ var width = window.innerWidth;
 var height = window.innerHeight;
 
 // globals
-var stage, curveLayer, lineLayer, anchorLayer;
+var stage, curveLayer, lineLayer, anchorLayer, imagelayer;
 var points = []; //store all points Anchor
 var points_status = []; //store all points status
 var lines = []; //store all lines
@@ -26,6 +26,7 @@ function updateDots() {
   }
   anchorLayer.draw();
 }
+
 function updateLines() {
   lineLayer.destroyChildren();
   for (var i = 0; i < points.length; i++) {
@@ -128,6 +129,7 @@ function init() {
 
   anchorLayer = new Konva.Layer();
   lineLayer = new Konva.Layer();
+  imagelayer = new Konva.Layer();
 
   var start_x = 30,
     start_y = 30;
@@ -141,7 +143,23 @@ function init() {
     points[i] = points_temp;
     points_status[i] = points_status_temp;
   }
-  stage.add(lineLayer);
-  stage.add(anchorLayer);
-  updateLines();
+
+  var imageObj = new Image();
+  imageObj.onload = function() {
+    var map = new Konva.Image({
+      x: 0,
+      y: 0,
+      image: imageObj,
+      width: width,
+      height: height
+    });
+
+    // add the shape to the layer
+    imagelayer.add(map);
+    stage.add(imagelayer);
+    stage.add(lineLayer);
+    stage.add(anchorLayer);
+    updateLines();
+  };
+  imageObj.src = 'images/map.png';
 }
