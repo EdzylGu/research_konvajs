@@ -131,8 +131,8 @@ function init() {
   lineLayer = new Konva.Layer();
   imagelayer = new Konva.Layer();
 
-  var start_x = 30,
-    start_y = 30;
+  var start_x = 47,
+    start_y = 108;
   for (var i = 0; i < node_height + 20; i++) {
     var points_temp = [];
     var points_status_temp = [];
@@ -148,10 +148,10 @@ function init() {
   imageObj.onload = function() {
     var map = new Konva.Image({
       x: 0,
-      y: 0,
+      y: 10,
       image: imageObj,
-      width: width,
-      height: height
+      width: width*1,
+      height: height*1.2
     });
 
     // add the shape to the layer
