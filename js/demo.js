@@ -170,6 +170,7 @@ function UpdateRobot() {
         robots_position[i][0] = x_i + 1;
       } else {
         robots_position[i][2] = 'u';
+        robots[i].rotate(90);
       }
     }
 
@@ -180,6 +181,7 @@ function UpdateRobot() {
         robots_position[i][1] = y_i - 1;
       } else {
         robots_position[i][2] = 'l';
+        robots[i].rotate(90);
       }
     }
 
@@ -190,6 +192,7 @@ function UpdateRobot() {
         robots_position[i][0] = x_i - 1;
       } else {
         robots_position[i][2] = 'd';
+        robots[i].rotate(90);
       }
     }
 
@@ -200,6 +203,7 @@ function UpdateRobot() {
         robots_position[i][1] = y_i + 1;
       } else {
         robots_position[i][2] = 'r';
+        robots[i].rotate(90);
       }
     }
 
@@ -238,12 +242,12 @@ function Init() {
         robot_position.push("r"); //direction
         robots_position.push(robot_position);
       }
-      if (robot_x + robot_x === i && robot_y === j + 2) {
+      if (robot_x + robot_x === i && node_height-10 === j) {
         robots.push(buildRobot(start_x + 35 * i, start_y + 35 * j, "robot-" + i.toString() + "," + j.toString()));
         var robot_position = [];
         robot_position.push(i);
         robot_position.push(j);
-        robot_position.push("u"); //direction
+        robot_position.push("l"); //direction
         robots_position.push(robot_position);
       }
       if (robot_x + robot_y === i && robot_y === j) {
@@ -251,7 +255,7 @@ function Init() {
         var robot_position = [];
         robot_position.push(i);
         robot_position.push(j);
-        robot_position.push("l"); //direction
+        robot_position.push("r"); //direction
         robots_position.push(robot_position);
       }
     }
