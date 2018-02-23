@@ -16,10 +16,12 @@
   </style>
 </head>
 
-<body onload="init()">
+<body onload="Init()">
   <div id="container"></div>
-  <button type="button" onclick="load()">Load</button>
-  <button type="button" onclick="save()">Save</button>
+  <button type="button" id="run" onclick="Run(true);$('#run').hide();$('#pause').show();">Run</button>
+  <button hidden type="button" id="pause" onclick="Run(false);$('#run').show();$('#pause').hide();">Pause</button>
+  <button type="button" onclick="Load()">Load</button>
+  <button type="button" onclick="Save()">Save</button>
 </body>
 
 </html>
