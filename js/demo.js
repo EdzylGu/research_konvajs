@@ -1,8 +1,8 @@
 //parameter
 var node_height = 15;
 
-var width = window.innerWidth;
-var height = window.innerHeight;
+var width = (window.innerWidth)*2/3;
+var height = (window.innerHeight*2)/3;
 
 // globals
 var stage, curveLayer, lineLayer, anchorLayer, imagelayer, robotlayer;
@@ -225,7 +225,7 @@ function Init() {
   robotlayer = new Konva.Layer();
 
   var start_x = 47,
-    start_y = 108;
+    start_y = 125;
   var robot_x = Math.floor(Math.random() * node_height);
   var robot_y = Math.floor(Math.random() * node_height);
   for (var i = 0; i < node_height + 20; i++) {

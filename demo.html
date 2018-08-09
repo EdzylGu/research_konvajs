@@ -2,10 +2,14 @@
 <html>
 
 <head>
+  <meta charset="utf-8">
   <script src="js/konva.min.js"></script>
   <script src="js/jquery-3.3.1.min.js"></script>
+  <!-- <link href="/home/edzyl/research_konvajs/css/bootstrap_4_1_3/css/bootstrap.min.css"> -->
+  <!-- <script src="/home/edzyl/research_konvajs/css/bootstrap_4_1_3/js/bootstrap.min.js"></script> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <script src="js/demo.js"></script>
-  <meta charset="utf-8">
   <title>Matrix Editor Demo</title>
   <style>
     body {
@@ -17,11 +21,20 @@
 </head>
 
 <body onload="Init()">
-  <div id="container"></div>
-  <button type="button" id="run" onclick="Run(true);$('#run').hide();$('#pause').show();">Run</button>
-  <button hidden type="button" id="pause" onclick="Run(false);$('#run').show();$('#pause').hide();">Pause</button>
-  <button type="button" onclick="Load()">Load</button>
-  <button type="button" onclick="Save()">Save</button>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8" style="border-style:solid;">
+        <div id="container" style="overflow:hidden"></div>
+        <button type="button" id="run" onclick="Run(true);$('#run').hide();$('#pause').show();">Run</button>
+        <button hidden type="button" id="pause" onclick="Run(false);$('#run').show();$('#pause').hide();">Pause</button>
+        <button type="button" onclick="Load()">Load</button>
+        <button type="button" onclick="Save()">Save</button>
+      </div>
+      <div class="col-md-4" style="border-style:solid;">
+        <h5>123</h5>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
